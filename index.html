@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>#NOELandOnlyForKIMMY</title>
+        <meta name="viewport" content="width=device-width,height=device-height">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+     
+        
+        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        <script src="anime.min.js"></script>
+
+
+        <script>
+
+            // growing-up Video Handler
+            
+            AFRAME.registerComponent('video-vidhandler', {
+                init: function() {
+                    this.toggle = false;
+                    this.vid = document.querySelector("#growing-up");
+		    this.videoPlane = document.querySelector("#video-plane");
+                    this.vid.pause();
+                },
+                tick: function() {
+                    if (this.el.object3D.visible == true) {
+                        if (!this.toggle) {
+                            this.toggle = true;
+
+                            //Show Video
+                            //this.videoPlane.setAttribute("visible",true);
+                            this.vid.play();
+                        }
+                    } else {
+                        this.toggle = false;
+                        //this.videoPlane.setAttribute("visible",false);
+                        this.vid.pause();
+                    }
+                }
+            });
+
+        </script>
+	    
+	 <style>
+		 .a-loader-title{
+			    background-color: #4F1E0C;
+		 }
+	    </style>
+    </head>
+    <body>
+        <div style="text-align: center;"><h4>Scan the image markers in your invitation</h4></div>
+        <a-scene id="scene" renderer="colorManagement: true" arjs='trackingMethod: best; debugUIEnabled: false;' vr-mode-ui="enabled: false" ar-template >
+            
+            <a-assets>
+
+                <!-- growing-up  Video -->
+                
+                <video crossorigin="anonymous" type="video/mp4" preload="auto" id="growing-up" autoplay webkit-playsinline playsinline controls timeout="30000">
+			<source  type="video/mp4"src="https://ftp.se.phyron.com/demo/test/vid.mp4">
+			<source  type="video/mp4" src="https://www.googleapis.com/drive/v3/files/1Imfy6AMiSP0DGgVQW7138LLgiGc5zC0d?alt=media&key=AIzaSyBOPXy0Tgn2tNRjq-HGkAbQaIs1PDRDvuM">
+                </video>
+
+            </a-assets>
+
+            <!--Sea Creatures -->
+
+           <!-- <a-plane visible="false"  id="video-plane" scale = "1 0.8 1" position='0 0 -1' rotation="0 0 0" material='transparent:true;src:#growing-up' controls></a-plane>
+    		-->
+            <!-- Video Marker -->
+
+	   <a-marker id="marker1" type='pattern' url='marker/pattern-marker.patt' video-vidhandler>
+                <a-video src="#growing-up" width="1.4375" height="1" rotation="270 0 0"></a-video>
+            </a-marker>
+
+            
+            <!-- Camera -->
+
+            <a-entity camera></a-entity>
+
+        </a-scene>
+
+
+    </body>
+</html>
